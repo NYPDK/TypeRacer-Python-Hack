@@ -1,4 +1,4 @@
-# TypeRacer-Python-Hack
+# TypeRacer Python Hack
 
 NOTE: THIS IS ONLY FOR WINDOWS
 (you can edit the code as you like to make it work for other platforms, it is open source after all)
