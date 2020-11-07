@@ -1,8 +1,15 @@
 from selenium import webdriver
 import time, re
 
-# Delay between typed characters (default 0.975)
-delay = 0.0975
+default_delay = 0.105
+usr_delay = input('Enter a delay value (Press enter to use default: 0.11): ')
+
+if usr_delay != '':
+    print('\nDelay set to ' + usr_delay)
+    delay = float(usr_delay)
+else:
+    print('\nNo delay specified - using default delay of ' + default_delay)
+    delay = default_delay
 
 browser = webdriver.Chrome(service_log_path='NUL')
 browser.get('https://play.typeracer.com/')
@@ -12,7 +19,7 @@ def start():
     timer = True
     while timer == True:
         try:
-            count_down = browser.find_element_by_xpath('//*[@class="txtInput txtInput-unfocused"]')
+            browser.find_element_by_xpath('//*[@class="txtInput txtInput-unfocused"]')
             print('Waiting for countdown')
         except:
             timer = False
@@ -51,7 +58,7 @@ def main():
 # Used to re-run the script
 def loop():
     time.sleep(2)
-    input('\n\n\nPress enter to race again! \n(Make sure to close any popup windows first!)\n\n\n')
+    input('\n\n\nPress enter to race again! \n(Make sure to close any pop-up windows first!)\n\n\n')
     print('Bot started, joining race!')
     try:
         browser.find_element_by_link_text('Enter a typing race').click()
