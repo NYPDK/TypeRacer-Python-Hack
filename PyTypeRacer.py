@@ -4,7 +4,7 @@ import time, re
 # Delay between typed characters (default 0.975)
 delay = 0.0975
 
-browser = webdriver.Chrome()
+browser = webdriver.Chrome(service_log_path='NUL')
 browser.get('https://play.typeracer.com/')
 
 # Detects when the countdown is over
@@ -12,15 +12,15 @@ def start():
     timer = True
     while timer == True:
         try:
-            count_down = browser.find_element_by_xpath('//*[@class="countdownPopup horizontalCountdownPopup"]')
+            count_down = browser.find_element_by_xpath('//*[@class="txtInput txtInput-unfocused"]')
             print('Waiting for countdown')
         except:
             timer = False
-            print('Count down complete! Starting!')
+            print('Count down complete! Starting!\n')
             main()
         time.sleep(0.5)
 
-# Handles all the logic nhwMiddleCommagwt
+# Handles all the logic
 def main():
     try:
         typeBar = browser.find_element_by_class_name('txtInput')
@@ -52,6 +52,7 @@ def main():
 def loop():
     time.sleep(2)
     input('\n\n\nPress enter to race again! \n(Make sure to close any popup windows first!)\n\n\n')
+    print('Bot started, joining race!')
     try:
         browser.find_element_by_link_text('Enter a typing race').click()
         time.sleep(3)
@@ -70,6 +71,7 @@ def loop():
 # Initial start
 time.sleep(1.5)
 input('\n\n\nPress enter to begin \n(Wait until you are done loading and are on the menu screen)\n\n\n')
+print('Bot started, joining race!')
 try:
     browser.find_element_by_link_text('Enter a typing race').click()
 except:
