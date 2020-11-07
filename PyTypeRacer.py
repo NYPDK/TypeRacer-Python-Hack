@@ -1,8 +1,8 @@
 from selenium import webdriver
 import time, re
 
-# Delay between typed characters (default 0.1)
-delay = 0.1
+# Delay between typed characters (default 0.975)
+delay = 0.0975
 
 browser = webdriver.Chrome()
 browser.get('https://play.typeracer.com/')
@@ -17,21 +17,18 @@ def start():
         except:
             timer = False
             print('Count down complete! Starting!')
-            time.sleep(1)
             main()
         time.sleep(0.5)
 
-# Handles all the logic
+# Handles all the logic nhwMiddleCommagwt
 def main():
-    typeBar = browser.find_element_by_class_name('txtInput')
-    word1 = browser.find_element_by_xpath('(//*[@unselectable="on"])[1]').text
-    word2 = browser.find_element_by_xpath('(//*[@unselectable="on"])[2]').text
-
     try:
-        word4 = browser.find_element_by_xpath('(//*[@unselectable="on"])[4]').text
-        word3 = browser.find_element_by_xpath('(//*[@unselectable="on"])[3]').text
+        typeBar = browser.find_element_by_class_name('txtInput')
+        word1 = browser.find_element_by_xpath('//*[@id[starts-with(., \'nhwMiddlegwt\')]]').text
+        word2 = browser.find_element_by_xpath('//*[@id[starts-with(., \'nhwRightgwt\')]]').text
+        wordcomma = browser.find_element_by_xpath('//*[@id[starts-with(., \'nhwMiddleCommagwt\')]]').text
 
-        word_check = (word1 + word2 + ' ' + word3 + ' ' + word4)
+        word_check = (word1 + wordcomma + ' ' + word2)
         word_complete = re.sub(' , ', ', ', word_check)
         print('Words: \n' + word_complete)
         for char in word_complete:
@@ -39,29 +36,22 @@ def main():
             time.sleep(delay)
         loop()
     except:
-        try:
-            word3 = browser.find_element_by_xpath('(//*[@unselectable="on"])[3]').text
+        typeBar = browser.find_element_by_class_name('txtInput')
+        word1 = browser.find_element_by_xpath('//*[@id[starts-with(., \'nhwMiddlegwt\')]]').text
+        word2 = browser.find_element_by_xpath('//*[@id[starts-with(., \'nhwRightgwt\')]]').text
 
-            word_check = (word1 + word2 + ' ' + word3)
-            word_complete = re.sub(' , ', ', ', word_check)
-            print('Words: \n' + word_complete)
-            for char in word_complete:
-                typeBar.send_keys(char)
-                time.sleep(delay)
-            loop()
-        except:
-            word_check = (word1 + word2)
-            word_complete = re.sub(' , ', ', ', word_check)
-            print('Words: \n' + word_complete)
-            for char in word_complete:
-                typeBar.send_keys(char)
-                time.sleep(delay)
-            loop()
+        word_check = (word1 + ' ' + word2)
+        word_complete = re.sub(' , ', ', ', word_check)
+        print('Words: \n' + word_complete)
+        for char in word_complete:
+            typeBar.send_keys(char)
+            time.sleep(delay)
+        loop()
 
 # Used to re-run the script
 def loop():
-    time.sleep(1)
-    input('Press enter to race again! (Make sure to close any popup windows first!)')
+    time.sleep(2)
+    input('\n\n\nPress enter to race again! \n(Make sure to close any popup windows first!)\n\n\n')
     try:
         browser.find_element_by_link_text('Enter a typing race').click()
         time.sleep(3)
@@ -78,7 +68,17 @@ def loop():
             start()
 
 # Initial start
-time.sleep(5)
-browser.find_element_by_link_text('Enter a typing race').click()
-time.sleep(3)
+time.sleep(1.5)
+input('\n\n\nPress enter to begin \n(Wait until you are done loading and are on the menu screen)\n\n\n')
+try:
+    browser.find_element_by_link_text('Enter a typing race').click()
+except:
+    print('You need to wait for the site to finish loading!!!\nExiting program!')
+    time.sleep(3)
+time.sleep(1)
+browser.find_element_by_link_text('change display format').click()
+time.sleep(1)
+browser.find_element_by_xpath('(//*[@type="radio"])[2]').click()
+time.sleep(1)
+browser.find_element_by_xpath('//*[@title="close this popup"]').click()
 start()
