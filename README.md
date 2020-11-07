@@ -7,7 +7,7 @@ Setup:
 
 When the bot is running, you do not need to click on anything in chrome. (unless it is to close the captcha test if the WPM was greater than 100)
 
-Example video showing it running (default low WPM so the anti cheat doesn't make you take a test)
+Example video showing it running (pre-release build so it is a bit different now)
 https://youtu.be/Y_FDX8TQB0A
 
 ENJOY! <3
