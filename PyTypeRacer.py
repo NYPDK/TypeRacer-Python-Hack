@@ -2,13 +2,13 @@ from selenium import webdriver
 import time, re
 
 default_delay = 0.105
-usr_delay = input('Enter a delay value (Press enter to use default: 0.11): ')
+usr_delay = input('Enter a delay value (Press enter to use default: ' + str(default_delay) + '): ')
 
 if usr_delay != '':
-    print('\nDelay set to ' + usr_delay)
+    print('\nDelay set to ' + str(usr_delay))
     delay = float(usr_delay)
 else:
-    print('\nNo delay specified - using default delay of ' + default_delay)
+    print('\nNo delay specified - using default delay of ' + str(default_delay))
     delay = default_delay
 
 browser = webdriver.Chrome(service_log_path='NUL')
