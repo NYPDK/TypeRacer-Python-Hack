@@ -1,5 +1,8 @@
 # TypeRacer-Python-Hack
 
+NOTE: THIS IS ONLY FOR WINDOWS
+(you can edit the code as you like to make it work for other platforms, it is open source after all)
+
 Setup:
 1. You must have Selenium and keyboard installed (pip install selenium | pip install keyboard) 
 2. You must have ChromeDriver installed https://chromedriver.chromium.org/downloads
