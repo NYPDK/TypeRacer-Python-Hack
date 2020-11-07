@@ -1,11 +1,20 @@
+from enum import auto
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 import time, re, os
 
-clear = lambda: os.system('cls')
-default_delay = 0.103
-clear()
-usr_delay = input('Enter a delay value (Press enter to use default: ' + str(default_delay) + '): ')
+chrome_options = Options()
+chrome_options.add_argument('--headless')
+chrome_options.add_argument('--log-level=3')
+browser = webdriver.Chrome(service_log_path='NUL')
+browser.get('https://play.typeracer.com/')
 
+clear = lambda: os.system('cls')
+default_delay = 0.07
+default_wpm = 95
+
+clear()
+usr_delay = input('Enter a delay value (Default | ' + str(default_delay) + ')\n')
 if usr_delay != '':
     clear()
     print('Delay set to ' + str(usr_delay))
@@ -13,10 +22,44 @@ if usr_delay != '':
 else:
     clear()
     print('No delay specified - using default delay of ' + str(default_delay))
-    delay = default_delay
-
-browser = webdriver.Chrome(service_log_path='NUL')
-browser.get('https://play.typeracer.com/')
+    delay = default_delay 
+time.sleep(1)
+clear()
+usr_wpm = input('Input the maximium wpm (Default | 95) (the bot will try to stay under this wpm)\n')
+if usr_wpm != '':
+    clear()
+    print('Max wpm set to ' + str(usr_wpm))
+    max_wpm = float(usr_wpm)
+else:
+    clear()
+    print('No max wpm specified - using default max of ' + str(default_wpm))
+    max_wpm = default_wpm
+time.sleep(1)
+clear()
+auto_play = input('Would you like to enable autoplay? y/n (Default | N) (The bot will start races on it\'s own if enabled)\n')
+if auto_play == 'y' or auto_play == 'Y':
+    clear()
+    print('Auto play enabled')
+    start_auto = True
+else:
+    clear()
+    print('Auto play not enabled')
+    start_auto = False
+time.sleep(1)
+clear()
+auto_login = input('Would you like PyTypeRacer to log in for you? y/n (Default | N)\n')
+if auto_login == 'y' or auto_login == 'Y':
+    aLogin = True
+    clear()
+    username = input('Enter your username:\n')
+    time.sleep(1)
+    clear()
+    password = input('Enter your password:\n')
+else:
+    aLogin = False
+    clear()
+    print('PyTypeRacer will not log in for you')
+time.sleep(1)
 
 # Detects when the countdown is over
 def start():
@@ -48,8 +91,13 @@ def main():
         clear()
         print('Words: \n' + word_complete + '\n')
         for char in word_complete:
-            typeBar.send_keys(char)
-            time.sleep(delay)
+            wpm = re.sub(' wpm', '', browser.find_element_by_xpath('//*[@class="rankPanelWpm rankPanelWpm-self"]').text)
+            if int(wpm) >= max_wpm:
+                typeBar.send_keys(char)
+                time.sleep(0.2)
+            else:
+                typeBar.send_keys(char)
+                time.sleep(delay)
         loop()
     except:
         typeBar = browser.find_element_by_class_name('txtInput')
@@ -61,15 +109,22 @@ def main():
         clear()
         print('Words: \n' + word_complete + '\n')
         for char in word_complete:
+            wpm = re.sub(' wpm', '', browser.find_element_by_xpath('//*[@class="rankPanelWpm rankPanelWpm-self"]').text)
+            if int(wpm) >= max_wpm:
+                typeBar.send_keys(char)
+                time.sleep(0.2)
+            else:
+                typeBar.send_keys(char)
+                time.sleep(delay)
             typeBar.send_keys(char)
             time.sleep(delay)
         loop()
 
 # Re-run the script
-def loop():
+def loopMain():
     clear()
-    input('Press enter to race again! \n(Make sure to close any pop-up windows first!)\n\n\n')
     print('Bot started, joining race!')
+    time.sleep(1)
     try:
         browser.find_element_by_xpath('//*[@type="button"]').click()
         time.sleep(0.5)
@@ -107,10 +162,36 @@ def loop():
                 time.sleep(3)
                 start()
 
+def loop():
+    if start_auto == True:
+        time.sleep(1)
+        loopMain()
+    else:
+        time.sleep(1)
+        clear()
+        input('Press enter to start another race!')
+        loopMain()
+
+def login():
+    browser.find_element_by_xpath('(//*[@href="javascript:;"])[1]').click()
+    time.sleep(1)
+    user_login = browser.find_element_by_xpath('//*[@name="username"]')
+    user_login.send_keys(username)
+    time.sleep(1)
+    useer_pass = browser.find_element_by_xpath('//*[@name="password"]')
+    useer_pass.send_keys(password)
+    time.sleep(1)
+    browser.find_element_by_xpath('(//*[@class="gwt-Button"])[1]').click()
+    time.sleep(2)
+
 # Initial start
-time.sleep(1.5)
 clear()
 input('Press enter to begin \n(Wait until you are done loading and are on the menu screen)\n\n\n')
+if aLogin == True:
+    clear()
+    print('PyTypeRacer is trying to log you in')
+    login()
+clear()
 print('Bot started, joining race!')
 try:
     browser.find_element_by_link_text('Enter a typing race').click()
