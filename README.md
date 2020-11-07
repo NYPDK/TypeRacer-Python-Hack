@@ -5,7 +5,8 @@ NOTE: THIS IS ONLY FOR WINDOWS
 
 Setup:
 1. You must have Selenium and keyboard installed (pip install selenium | pip install keyboard) 
-2. You must have ChromeDriver installed https://chromedriver.chromium.org/downloads
+2. You must have ChromeDriver installed for your version of Chrome https://chromedriver.chromium.org/downloads
+![GitHub Logo](file:///C:/Users/h4wk8/Pictures/Screenshot%202020-11-07%20024054.png)
 3. You need to set ChromeDrivers PATH, here is a YT video on how to do that: https://www.youtube.com/watch?v=dz59GsdvUF8
 
 When the bot is running, you do not need to click on anything in chrome. (unless it is to close the captcha test if the WPM was greater than 100)
