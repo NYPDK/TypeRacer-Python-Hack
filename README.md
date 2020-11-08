@@ -10,7 +10,7 @@ Setup:
 ![Chrome version](https://i.ibb.co/x73fB4W/image.png)
 3. You need to set ChromeDrivers PATH, here is a YT video on how to do that: https://www.youtube.com/watch?v=dz59GsdvUF8
 
-When the bot is running, you do not need to click on anything in chrome. (unless it is to close the captcha test if the WPM was greater than 100)
+When the bot is running, you do not need to click on anything in chrome.
 
 Example video showing it running (Version 1.2)
 https://youtu.be/SXPQbXbmpVE
