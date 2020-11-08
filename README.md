@@ -4,6 +4,7 @@ NOTE: THIS IS ONLY FOR WINDOWS
 (you can edit the code as you like to make it work for other platforms, it is open source after all)
 
 Setup:
+(You will obviously need python installed, I personally run python 3.9.0)
 1. You must have Selenium and keyboard installed (pip install selenium | pip install keyboard) 
 2. You must have ChromeDriver installed for your version of Chrome https://chromedriver.chromium.org/downloads
 ![Chrome version](https://i.ibb.co/x73fB4W/image.png)
