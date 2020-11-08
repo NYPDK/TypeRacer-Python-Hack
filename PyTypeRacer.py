@@ -3,10 +3,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time, re, os
 
-chrome_options = Options()
-chrome_options.add_argument('--headless')
-chrome_options.add_argument('--log-level=3')
-browser = webdriver.Chrome(service_log_path='NUL')
+browser = webdriver.Chrome()
 browser.get('https://play.typeracer.com/')
 
 clear = lambda: os.system('cls')
