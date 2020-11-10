@@ -85,14 +85,19 @@ def main():
 
         word_check = (word1 + wordcomma + ' ' + word2)
         word_complete = re.sub(' , ', ', ', word_check)
+        allow_print = True
         clear()
         print('Words: \n' + word_complete + '\n')
         for char in word_complete:
             wpm = re.sub(' wpm', '', browser.find_element_by_xpath('//*[@class="rankPanelWpm rankPanelWpm-self"]').text)
             if int(wpm) >= max_wpm:
+                if allow_print == True:
+                    print(f'WPM limit threshold: {wpm}/{max_wpm}')
+                    allow_print = False
                 typeBar.send_keys(char)
                 time.sleep(0.2)
             else:
+                allow_print = True
                 typeBar.send_keys(char)
                 time.sleep(delay)
         loop()
@@ -103,14 +108,19 @@ def main():
 
         word_check = (word1 + ' ' + word2)
         word_complete = re.sub(' , ', ', ', word_check)
+        allow_print = True
         clear()
         print('Words: \n' + word_complete + '\n')
         for char in word_complete:
             wpm = re.sub(' wpm', '', browser.find_element_by_xpath('//*[@class="rankPanelWpm rankPanelWpm-self"]').text)
             if int(wpm) >= max_wpm:
+                if allow_print == True:
+                    print(f'WPM limit threshold: {wpm}/{max_wpm}')
+                    allow_print = False
                 typeBar.send_keys(char)
                 time.sleep(0.2)
             else:
+                allow_print = True
                 typeBar.send_keys(char)
                 time.sleep(delay)
             typeBar.send_keys(char)
@@ -134,10 +144,10 @@ def loopMain():
             time.sleep(3)
             start()
         except:
-            browser.find_element_by_link_text('Race Again »').click()
+            browser.find_element_by_xpath('//*[@class="raceAgainLink"]').click()
             time.sleep(1)
             try:
-                browser.find_element_by_link_text('No thanks :(').click()
+                browser.find_element_by_xpath('//*[@class="xButton"]').click()
                 time.sleep(3)
                 start()
             except:
@@ -149,10 +159,10 @@ def loopMain():
             time.sleep(3)
             start()
         except:
-            browser.find_element_by_link_text('Race Again »').click()
+            browser.find_element_by_xpath('//*[@class="raceAgainLink"]').click()
             time.sleep(1)
             try:
-                browser.find_element_by_link_text('No thanks :(').click()
+                browser.find_element_by_xpath('//*[@class="xButton"]').click()
                 time.sleep(3)
                 start()
             except:
@@ -196,10 +206,10 @@ except:
     clear()
     print('You need to wait for the site to finish loading!!!\nExiting program!')
     time.sleep(3)
-time.sleep(0.5)
+time.sleep(1.5)
 browser.find_element_by_link_text('change display format').click()
-time.sleep(0.5)
+time.sleep(1.5)
 browser.find_element_by_xpath('(//*[@type="radio"])[2]').click()
-time.sleep(0.5)
+time.sleep(1.5)
 browser.find_element_by_xpath('//*[@title="close this popup"]').click()
 start()
